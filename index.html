@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmoria — Explorador do Sistema Solar</title>
+  <meta name="description" content="Explore o Sistema Solar de forma interativa e acessível. Descubra planetas, curiosidades e muito mais." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/gh/vlibras/vlibras-plugin@master/dist/vlibras-plugin.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-vlibras>
+
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+
+  <button class="contrast-toggle" id="contrastToggle" aria-label="Alternar alto contraste" aria-pressed="false">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+      <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+      <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/>
+    </svg>
+    <span>Alto Contraste</span>
+  </button>
+
+  <nav class="main-nav" role="navigation" aria-label="Navegação principal">
+    <div class="nav-logo" aria-label="Cosmoria - página inicial">
+      <span class="logo-symbol" aria-hidden="true">✦</span>
+      Cosmoria
+    </div>
+    <ul class="nav-links" role="list">
+      <li><a href="#hero" aria-label="Ir para o início">Início</a></li>
+      <li><a href="#planets" aria-label="Ir para os planetas">Planetas</a></li>
+      <li><a href="#explore" aria-label="Explorar o sistema solar">Explorar</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <section id="hero" class="hero-section" aria-labelledby="hero-title">
+      <canvas id="solar-canvas" aria-hidden="true" role="presentation"></canvas>
+      <div class="hero-content">
+        <p class="hero-eyebrow" aria-hidden="true">— Sistema Solar Interativo</p>
+        <h1 id="hero-title" class="hero-title">
+          <span class="title-line">Explore o</span>
+          <span class="title-line accent">Cosmos</span>
+          <span class="title-line">ao seu ritmo</span>
+        </h1>
+        <p class="hero-subtitle">Uma jornada visual e acessível pelos 8 planetas do nosso sistema solar. Gire, explore e descubra.</p>
+        <a href="#planets" class="cta-btn" aria-label="Começar a explorar os planetas">
+          <span>Começar Jornada</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <span>scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <section id="planets" class="planets-section" aria-labelledby="planets-title">
+      <div class="section-header">
+        <span class="section-tag" aria-hidden="true">01 / planetas</span>
+        <h2 id="planets-title">Os 8 Mundos</h2>
+        <p>Cada planeta tem sua própria personalidade, composição e mistérios. Clique para explorar.</p>
+      </div>
+
+      <div class="planets-grid" role="list" aria-label="Lista de planetas do sistema solar">
+
+        <article class="planet-card" role="listitem" data-planet="mercury" tabindex="0" aria-label="Mercúrio - clique para saber mais">
+          <div class="planet-orb mercury-orb" aria-hidden="true"></div>
+          <div class="planet-info">
+            <h3>Mercúrio</h3>
+            <p class="planet-type">Planeta Rochoso</p>
+            <p class="planet-desc">O menor e mais rápido planeta. Um ano dura apenas 88 dias terrestres.</p>
+            <ul class="planet-stats" aria-label="Dados de Mercúrio">
+              <li><span>Distância do Sol</span><strong>57,9 M km</strong></li>
+              <li><span>Diâmetro</span><strong>4.879 km</strong></li>
+              <li><span>Temperatura</span><strong>-180°C a 430°C</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="planet-card" role="listitem" data-planet="venus" tabindex="0" aria-label="Vênus - clique para saber mais">
+          <div class="planet-orb venus-orb" aria-hidden="true"></div>
+          <div class="planet-info">
+            <h3>Vênus</h3>
+            <p class="planet-type">Planeta Rochoso</p>
+            <p class="planet-desc">O planeta mais quente do sistema solar, apesar de não ser o mais próximo do Sol.</p>
+            <ul class="planet-stats" aria-label="Dados de Vênus">
+              <li><span>Distância do Sol</span><strong>108,2 M km</strong></li>
+              <li><span>Diâmetro</span><strong>12.104 km</strong></li>
+              <li><span>Temperatura</span><strong>462°C</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="planet-card featured" role="listitem" data-planet="earth" tabindex="0" aria-label="Terra - clique para saber mais">
+          <div class="planet-orb earth-orb" aria-hidden="true"></div>
+          <div class="planet-info">
+            <h3>Terra</h3>
+            <p class="planet-type">Nosso Lar ✦</p>
+            <p class="planet-desc">O único planeta conhecido a abrigar vida. 71% da superfície coberta por água.</p>
+            <ul class="planet-stats" aria-label="Dados da Terra">
+              <li><span>Distância do Sol</span><strong>149,6 M km</strong></li>
+              <li><span>Diâmetro</span><strong>12.742 km</strong></li>
+              <li><span>Temperatura</span><strong>-88°C a 58°C</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="planet-card" role="listitem" data-planet="mars" tabindex="0" aria-label="Marte - clique para saber mais">
+          <div class="planet-orb mars-orb" aria-hidden="true"></div>
+          <div class="planet-info">
+            <h3>Marte</h3>
+            <p class="planet-type">Planeta Rochoso</p>
+            <p class="planet-desc">O planeta vermelho. Tem o maior vulcão e o maior cânyon do sistema solar.</p>
+            <ul class="planet-stats" aria-label="Dados de Marte">
+              <li><span>Distância do Sol</span><strong>227,9 M km</strong></li>
+              <li><span>Diâmetro</span><strong>6.779 km</strong></li>
+              <li><span>Temperatura</span><strong>-125°C a 20°C</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="planet-card" role="listitem" data-planet="jupiter" tabindex="0" aria-label="Júpiter - clique para saber mais">
+          <div class="planet-orb jupiter-orb" aria-hidden="true"></div>
+          <div class="planet-info">
+            <h3>Júpiter</h3>
+            <p class="planet-type">Gigante Gasoso</p>
+            <p class="planet-desc">O maior planeta do sistema solar. A Grande Mancha Vermelha é uma tempestade que dura séculos.</p>
+            <ul class="planet-stats" aria-label="Dados de Júpiter">
+              <li><span>Distância do Sol</span><strong>778,5 M km</strong></li>
+              <li><span>Diâmetro</span><strong>139.820 km</strong></li>
+              <li><span>Temperatura</span><strong>-110°C</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="planet-card" role="listitem" data-planet="saturn" tabindex="0" aria-label="Saturno - clique para saber mais">
+          <div class="planet-orb saturn-orb" aria-hidden="true"></div>
+          <div class="planet-info">
+            <h3>Saturno</h3>
+            <p class="planet-type">Gigante Gasoso</p>
+            <p class="planet-desc">Famoso pelos seus anéis de gelo e rocha. Tem densidade menor que a da água.</p>
+            <ul class="planet-stats" aria-label="Dados de Saturno">
+              <li><span>Distância do Sol</span><strong>1,43 B km</strong></li>
+              <li><span>Diâmetro</span><strong>116.460 km</strong></li>
+              <li><span>Temperatura</span><strong>-140°C</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="planet-card" role="listitem" data-planet="uranus" tabindex="0" aria-label="Urano - clique para saber mais">
+          <div class="planet-orb uranus-orb" aria-hidden="true"></div>
+          <div class="planet-info">
+            <h3>Urano</h3>
+            <p class="planet-type">Gigante de Gelo</p>
+            <p class="planet-desc">Gira de lado com inclinação axial de 98°. Seus anéis são quase verticais.</p>
+            <ul class="planet-stats" aria-label="Dados de Urano">
+              <li><span>Distância do Sol</span><strong>2,87 B km</strong></li>
+              <li><span>Diâmetro</span><strong>50.724 km</strong></li>
+              <li><span>Temperatura</span><strong>-195°C</strong></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="planet-card" role="listitem" data-planet="neptune" tabindex="0" aria-label="Netuno - clique para saber mais">
+          <div class="planet-orb neptune-orb" aria-hidden="true"></div>
+          <div class="planet-info">
+            <h3>Netuno</h3>
+            <p class="planet-type">Gigante de Gelo</p>
+            <p class="planet-desc">Os ventos mais rápidos do sistema solar chegam a 2.100 km/h. Distante e misterioso.</p>
+            <ul class="planet-stats" aria-label="Dados de Netuno">
+              <li><span>Distância do Sol</span><strong>4,50 B km</strong></li>
+              <li><span>Diâmetro</span><strong>49.244 km</strong></li>
+              <li><span>Temperatura</span><strong>-200°C</strong></li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="explore" class="explore-section" aria-labelledby="explore-title">
+      <div class="explore-inner">
+        <span class="section-tag" aria-hidden="true">02 / curiosidades</span>
+        <h2 id="explore-title">Fatos que Surpreendem</h2>
+        <div class="facts-ticker" aria-live="polite" aria-label="Curiosidades sobre o sistema solar">
+          <div class="ticker-track" id="tickerTrack" aria-hidden="true">
+            <span>✦ Um dia em Vênus é mais longo que um ano em Vênus</span>
+            <span>✦ O Sol representa 99,86% da massa do sistema solar</span>
+            <span>✦ Júpiter tem 95 luas conhecidas</span>
+            <span>✦ A Grande Mancha Vermelha de Júpiter cabe 1,3 Terras dentro dela</span>
+            <span>✦ Saturno perderia para a água numa banheira gigante</span>
+            <span>✦ Netuno leva 165 anos para orbitar o Sol uma vez</span>
+            <span>✦ Marte tem o maior vulcão do sistema solar: Olympus Mons</span>
+            <span>✦ Um ano em Mercúrio dura 88 dias terrestres</span>
+          </div>
+        </div>
+
+        <div class="scale-viz" aria-label="Visualização comparativa dos planetas">
+          <p class="scale-label">Tamanho comparativo (escala aproximada)</p>
+          <div class="scale-planets" aria-hidden="true">
+            <div class="scale-planet" style="--s:4px; --c:#b5b5b5;" title="Mercúrio"></div>
+            <div class="scale-planet" style="--s:10px; --c:#e8c87a;" title="Vênus"></div>
+            <div class="scale-planet" style="--s:10px; --c:#4a9eff;" title="Terra"></div>
+            <div class="scale-planet" style="--s:7px; --c:#c1440e;" title="Marte"></div>
+            <div class="scale-planet" style="--s:28px; --c:#c88b3a;" title="Júpiter"></div>
+            <div class="scale-planet saturn-ring" style="--s:23px; --c:#e4d191;" title="Saturno"></div>
+            <div class="scale-planet" style="--s:18px; --c:#7de8e8;" title="Urano"></div>
+            <div class="scale-planet" style="--s:17px; --c:#3f54ba;" title="Netuno"></div>
+          </div>
+          <div class="scale-names" aria-hidden="true">
+            <span>Mercúrio</span><span>Vênus</span><span>Terra</span><span>Marte</span>
+            <span>Júpiter</span><span>Saturno</span><span>Urano</span><span>Netuno</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-logo" aria-label="Cosmoria">
+          <span aria-hidden="true">✦</span> Cosmoria
+        </div>
+        <p>Projeto desenvolvido para a disciplina de IHC — Interface Humano-Computador.</p>
+        <p class="footer-credits">Feito com Three.js · GSAP · Lenis · VLibras</p>
+        <p class="footer-access">
+          <span aria-hidden="true">♿</span> Este site segue práticas de acessibilidade WCAG 2.1 AA
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <div id="planet-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-planet-name" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Fechar detalhes do planeta">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="modal-planet-visual" id="modalVisual" aria-hidden="true"></div>
+      <h2 id="modal-planet-name" class="modal-planet-name"></h2>
+      <p class="modal-planet-type" id="modalType"></p>
+      <p class="modal-planet-desc" id="modalDesc"></p>
+      <ul class="modal-stats" id="modalStats" aria-label="Dados do planeta"></ul>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -5,27 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cosmoria — Explorador do Sistema Solar</title>
   <meta name="description" content="Explore o Sistema Solar de forma interativa e acessível. Descubra planetas, curiosidades e muito mais." />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-
-  <script src="https://cdn.jsdelivr.net/gh/vlibras/vlibras-plugin@master/dist/vlibras-plugin.min.js"></script>
-
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-vlibras>
 
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
+    <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
   </div>
 
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
   <button class="contrast-toggle" id="contrastToggle" aria-label="Alternar alto contraste" aria-pressed="false">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-      <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2" opacity="0.3"/>
       <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/>
     </svg>
     <span>Alto Contraste</span>
@@ -33,13 +30,13 @@
 
   <nav class="main-nav" role="navigation" aria-label="Navegação principal">
     <div class="nav-logo" aria-label="Cosmoria - página inicial">
-      <span class="logo-symbol" aria-hidden="true">✦</span>
-      Cosmoria
+      <span class="logo-symbol" aria-hidden="true">✦</span>Cosmoria
     </div>
     <ul class="nav-links" role="list">
-      <li><a href="#hero" aria-label="Ir para o início">Início</a></li>
-      <li><a href="#planets" aria-label="Ir para os planetas">Planetas</a></li>
-      <li><a href="#explore" aria-label="Explorar o sistema solar">Explorar</a></li>
+      <li><a href="#hero">Início</a></li>
+      <li><a href="#orrery">Orrery</a></li>
+      <li><a href="#planets">Planetas</a></li>
+      <li><a href="#explore">Curiosidades</a></li>
     </ul>
   </nav>
 
@@ -47,6 +44,11 @@
 
     <section id="hero" class="hero-section" aria-labelledby="hero-title">
       <canvas id="solar-canvas" aria-hidden="true" role="presentation"></canvas>
+      <div class="hero-aurora" aria-hidden="true">
+        <div class="aurora-1"></div>
+        <div class="aurora-2"></div>
+        <div class="aurora-3"></div>
+      </div>
       <div class="hero-content">
         <p class="hero-eyebrow" aria-hidden="true">— Sistema Solar Interativo</p>
         <h1 id="hero-title" class="hero-title">
@@ -55,16 +57,67 @@
           <span class="title-line">ao seu ritmo</span>
         </h1>
         <p class="hero-subtitle">Uma jornada visual e acessível pelos 8 planetas do nosso sistema solar. Gire, explore e descubra.</p>
-        <a href="#planets" class="cta-btn" aria-label="Começar a explorar os planetas">
-          <span>Começar Jornada</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </a>
+        <div class="hero-ctas">
+          <a href="#orrery" class="cta-btn cta-primary" aria-label="Ver o sistema solar animado">
+            <span>Ver Orrery</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="#planets" class="cta-btn cta-secondary" aria-label="Explorar os planetas">
+            <span>Planetas</span>
+          </a>
+        </div>
       </div>
       <div class="hero-scroll-hint" aria-hidden="true">
         <span>scroll</span>
         <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <section class="stats-section" aria-label="Estatísticas do sistema solar">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <div class="stat-number-wrap">
+            <span class="stat-number" data-target="8">0</span>
+          </div>
+          <span class="stat-label">Planetas</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <div class="stat-number-wrap">
+            <span class="stat-number" data-target="290">0</span>
+            <span class="stat-suffix">+</span>
+          </div>
+          <span class="stat-label">Luas conhecidas</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <div class="stat-number-wrap">
+            <span class="stat-number" data-target="4.6" data-decimal>0</span>
+            <span class="stat-suffix">B anos</span>
+          </div>
+          <span class="stat-label">Idade do sistema</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item">
+          <div class="stat-number-wrap">
+            <span class="stat-number" data-target="1">0</span>
+          </div>
+          <span class="stat-label">Estrela central</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="orrery" class="orrery-section" aria-labelledby="orrery-title">
+      <div class="section-header">
+        <span class="section-tag" aria-hidden="true">00 / orrery</span>
+        <h2 id="orrery-title">Sistema em Movimento</h2>
+        <p>Visualização em tempo real das órbitas planetárias. Clique em um planeta para explorar.</p>
+      </div>
+      <div class="orrery-wrapper">
+        <div class="orrery-container" id="orreryContainer" role="img" aria-label="Animação do sistema solar com planetas orbitando o Sol"></div>
+        <div class="orrery-legend" id="orreryLegend" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -75,126 +128,210 @@
         <p>Cada planeta tem sua própria personalidade, composição e mistérios. Clique para explorar.</p>
       </div>
 
+      <div class="filter-bar" role="group" aria-label="Filtrar planetas por tipo">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="rocky">Rochosos</button>
+        <button class="filter-btn" data-filter="gas">Gigantes Gasosos</button>
+        <button class="filter-btn" data-filter="ice">Gigantes de Gelo</button>
+      </div>
+
       <div class="planets-grid" role="list" aria-label="Lista de planetas do sistema solar">
 
-        <article class="planet-card" role="listitem" data-planet="mercury" tabindex="0" aria-label="Mercúrio - clique para saber mais">
+        <article class="planet-card" role="listitem" data-planet="mercury" data-type="rocky" tabindex="0" aria-label="Mercúrio - clique para saber mais">
+          <div class="card-glow" aria-hidden="true"></div>
           <div class="planet-orb mercury-orb" aria-hidden="true"></div>
           <div class="planet-info">
-            <h3>Mercúrio</h3>
-            <p class="planet-type">Planeta Rochoso</p>
+            <div class="planet-header">
+              <div><h3>Mercúrio</h3><p class="planet-type">Planeta Rochoso</p></div>
+              <span class="planet-index" aria-hidden="true">01</span>
+            </div>
             <p class="planet-desc">O menor e mais rápido planeta. Um ano dura apenas 88 dias terrestres.</p>
             <ul class="planet-stats" aria-label="Dados de Mercúrio">
               <li><span>Distância do Sol</span><strong>57,9 M km</strong></li>
               <li><span>Diâmetro</span><strong>4.879 km</strong></li>
               <li><span>Temperatura</span><strong>-180°C a 430°C</strong></li>
             </ul>
+            <div class="card-cta" aria-hidden="true"><span>Explorar</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
           </div>
         </article>
 
-        <article class="planet-card" role="listitem" data-planet="venus" tabindex="0" aria-label="Vênus - clique para saber mais">
+        <article class="planet-card" role="listitem" data-planet="venus" data-type="rocky" tabindex="0" aria-label="Vênus - clique para saber mais">
+          <div class="card-glow" aria-hidden="true"></div>
           <div class="planet-orb venus-orb" aria-hidden="true"></div>
           <div class="planet-info">
-            <h3>Vênus</h3>
-            <p class="planet-type">Planeta Rochoso</p>
+            <div class="planet-header">
+              <div><h3>Vênus</h3><p class="planet-type">Planeta Rochoso</p></div>
+              <span class="planet-index" aria-hidden="true">02</span>
+            </div>
             <p class="planet-desc">O planeta mais quente do sistema solar, apesar de não ser o mais próximo do Sol.</p>
             <ul class="planet-stats" aria-label="Dados de Vênus">
               <li><span>Distância do Sol</span><strong>108,2 M km</strong></li>
               <li><span>Diâmetro</span><strong>12.104 km</strong></li>
               <li><span>Temperatura</span><strong>462°C</strong></li>
             </ul>
+            <div class="card-cta" aria-hidden="true"><span>Explorar</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
           </div>
         </article>
 
-        <article class="planet-card featured" role="listitem" data-planet="earth" tabindex="0" aria-label="Terra - clique para saber mais">
+        <article class="planet-card featured" role="listitem" data-planet="earth" data-type="rocky" tabindex="0" aria-label="Terra - clique para saber mais">
+          <div class="card-glow" aria-hidden="true"></div>
           <div class="planet-orb earth-orb" aria-hidden="true"></div>
           <div class="planet-info">
-            <h3>Terra</h3>
-            <p class="planet-type">Nosso Lar ✦</p>
+            <div class="planet-header">
+              <div><h3>Terra</h3><p class="planet-type">Nosso Lar ✦</p></div>
+              <span class="planet-index" aria-hidden="true">03</span>
+            </div>
             <p class="planet-desc">O único planeta conhecido a abrigar vida. 71% da superfície coberta por água.</p>
             <ul class="planet-stats" aria-label="Dados da Terra">
               <li><span>Distância do Sol</span><strong>149,6 M km</strong></li>
               <li><span>Diâmetro</span><strong>12.742 km</strong></li>
               <li><span>Temperatura</span><strong>-88°C a 58°C</strong></li>
             </ul>
+            <div class="card-cta" aria-hidden="true"><span>Explorar</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
           </div>
         </article>
 
-        <article class="planet-card" role="listitem" data-planet="mars" tabindex="0" aria-label="Marte - clique para saber mais">
+        <article class="planet-card" role="listitem" data-planet="mars" data-type="rocky" tabindex="0" aria-label="Marte - clique para saber mais">
+          <div class="card-glow" aria-hidden="true"></div>
           <div class="planet-orb mars-orb" aria-hidden="true"></div>
           <div class="planet-info">
-            <h3>Marte</h3>
-            <p class="planet-type">Planeta Rochoso</p>
+            <div class="planet-header">
+              <div><h3>Marte</h3><p class="planet-type">Planeta Rochoso</p></div>
+              <span class="planet-index" aria-hidden="true">04</span>
+            </div>
             <p class="planet-desc">O planeta vermelho. Tem o maior vulcão e o maior cânyon do sistema solar.</p>
             <ul class="planet-stats" aria-label="Dados de Marte">
               <li><span>Distância do Sol</span><strong>227,9 M km</strong></li>
               <li><span>Diâmetro</span><strong>6.779 km</strong></li>
               <li><span>Temperatura</span><strong>-125°C a 20°C</strong></li>
             </ul>
+            <div class="card-cta" aria-hidden="true"><span>Explorar</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
           </div>
         </article>
 
-        <article class="planet-card" role="listitem" data-planet="jupiter" tabindex="0" aria-label="Júpiter - clique para saber mais">
+        <article class="planet-card" role="listitem" data-planet="jupiter" data-type="gas" tabindex="0" aria-label="Júpiter - clique para saber mais">
+          <div class="card-glow" aria-hidden="true"></div>
           <div class="planet-orb jupiter-orb" aria-hidden="true"></div>
           <div class="planet-info">
-            <h3>Júpiter</h3>
-            <p class="planet-type">Gigante Gasoso</p>
+            <div class="planet-header">
+              <div><h3>Júpiter</h3><p class="planet-type">Gigante Gasoso</p></div>
+              <span class="planet-index" aria-hidden="true">05</span>
+            </div>
             <p class="planet-desc">O maior planeta do sistema solar. A Grande Mancha Vermelha é uma tempestade que dura séculos.</p>
             <ul class="planet-stats" aria-label="Dados de Júpiter">
               <li><span>Distância do Sol</span><strong>778,5 M km</strong></li>
               <li><span>Diâmetro</span><strong>139.820 km</strong></li>
               <li><span>Temperatura</span><strong>-110°C</strong></li>
             </ul>
+            <div class="card-cta" aria-hidden="true"><span>Explorar</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
           </div>
         </article>
 
-        <article class="planet-card" role="listitem" data-planet="saturn" tabindex="0" aria-label="Saturno - clique para saber mais">
+        <article class="planet-card" role="listitem" data-planet="saturn" data-type="gas" tabindex="0" aria-label="Saturno - clique para saber mais">
+          <div class="card-glow" aria-hidden="true"></div>
           <div class="planet-orb saturn-orb" aria-hidden="true"></div>
           <div class="planet-info">
-            <h3>Saturno</h3>
-            <p class="planet-type">Gigante Gasoso</p>
+            <div class="planet-header">
+              <div><h3>Saturno</h3><p class="planet-type">Gigante Gasoso</p></div>
+              <span class="planet-index" aria-hidden="true">06</span>
+            </div>
             <p class="planet-desc">Famoso pelos seus anéis de gelo e rocha. Tem densidade menor que a da água.</p>
             <ul class="planet-stats" aria-label="Dados de Saturno">
               <li><span>Distância do Sol</span><strong>1,43 B km</strong></li>
               <li><span>Diâmetro</span><strong>116.460 km</strong></li>
               <li><span>Temperatura</span><strong>-140°C</strong></li>
             </ul>
+            <div class="card-cta" aria-hidden="true"><span>Explorar</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
           </div>
         </article>
 
-        <article class="planet-card" role="listitem" data-planet="uranus" tabindex="0" aria-label="Urano - clique para saber mais">
+        <article class="planet-card" role="listitem" data-planet="uranus" data-type="ice" tabindex="0" aria-label="Urano - clique para saber mais">
+          <div class="card-glow" aria-hidden="true"></div>
           <div class="planet-orb uranus-orb" aria-hidden="true"></div>
           <div class="planet-info">
-            <h3>Urano</h3>
-            <p class="planet-type">Gigante de Gelo</p>
+            <div class="planet-header">
+              <div><h3>Urano</h3><p class="planet-type">Gigante de Gelo</p></div>
+              <span class="planet-index" aria-hidden="true">07</span>
+            </div>
             <p class="planet-desc">Gira de lado com inclinação axial de 98°. Seus anéis são quase verticais.</p>
             <ul class="planet-stats" aria-label="Dados de Urano">
               <li><span>Distância do Sol</span><strong>2,87 B km</strong></li>
               <li><span>Diâmetro</span><strong>50.724 km</strong></li>
               <li><span>Temperatura</span><strong>-195°C</strong></li>
             </ul>
+            <div class="card-cta" aria-hidden="true"><span>Explorar</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
           </div>
         </article>
 
-        <article class="planet-card" role="listitem" data-planet="neptune" tabindex="0" aria-label="Netuno - clique para saber mais">
+        <article class="planet-card" role="listitem" data-planet="neptune" data-type="ice" tabindex="0" aria-label="Netuno - clique para saber mais">
+          <div class="card-glow" aria-hidden="true"></div>
           <div class="planet-orb neptune-orb" aria-hidden="true"></div>
           <div class="planet-info">
-            <h3>Netuno</h3>
-            <p class="planet-type">Gigante de Gelo</p>
+            <div class="planet-header">
+              <div><h3>Netuno</h3><p class="planet-type">Gigante de Gelo</p></div>
+              <span class="planet-index" aria-hidden="true">08</span>
+            </div>
             <p class="planet-desc">Os ventos mais rápidos do sistema solar chegam a 2.100 km/h. Distante e misterioso.</p>
             <ul class="planet-stats" aria-label="Dados de Netuno">
               <li><span>Distância do Sol</span><strong>4,50 B km</strong></li>
               <li><span>Diâmetro</span><strong>49.244 km</strong></li>
               <li><span>Temperatura</span><strong>-200°C</strong></li>
             </ul>
+            <div class="card-cta" aria-hidden="true"><span>Explorar</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
           </div>
         </article>
 
       </div>
     </section>
 
+    <section class="missions-section" aria-labelledby="missions-title">
+      <div class="section-header">
+        <span class="section-tag" aria-hidden="true">02 / missões</span>
+        <h2 id="missions-title">Grandes Marcos</h2>
+        <p>As missões que expandiram nossa compreensão do cosmos.</p>
+      </div>
+      <div class="missions-grid" role="list">
+        <article class="mission-card" role="listitem">
+          <span class="mission-icon" aria-hidden="true">🌙</span>
+          <div class="mission-year">1969</div>
+          <h3>Apollo 11</h3>
+          <p class="mission-agency">NASA</p>
+          <p>Primeira missão tripulada a pousar na Lua. Neil Armstrong e Buzz Aldrin deram os primeiros passos humanos na superfície lunar.</p>
+        </article>
+        <article class="mission-card" role="listitem">
+          <span class="mission-icon" aria-hidden="true">🛸</span>
+          <div class="mission-year">1977</div>
+          <h3>Voyager 1 &amp; 2</h3>
+          <p class="mission-agency">NASA</p>
+          <p>Sondas que visitaram Júpiter, Saturno, Urano e Netuno. Voyager 1 é o objeto humano mais distante da Terra.</p>
+        </article>
+        <article class="mission-card" role="listitem">
+          <span class="mission-icon" aria-hidden="true">🔭</span>
+          <div class="mission-year">1990</div>
+          <h3>Hubble Space Telescope</h3>
+          <p class="mission-agency">NASA / ESA</p>
+          <p>Telescópio espacial que revolucionou nossa visão do universo, captando galáxias a bilhões de anos-luz de distância.</p>
+        </article>
+        <article class="mission-card" role="listitem">
+          <span class="mission-icon" aria-hidden="true">🤖</span>
+          <div class="mission-year">2012</div>
+          <h3>Curiosity Rover</h3>
+          <p class="mission-agency">NASA</p>
+          <p>Rover ainda ativo em Marte, explorando a cratera Gale em busca de evidências de vida passada no planeta vermelho.</p>
+        </article>
+        <article class="mission-card" role="listitem">
+          <span class="mission-icon" aria-hidden="true">✨</span>
+          <div class="mission-year">2021</div>
+          <h3>James Webb Telescope</h3>
+          <p class="mission-agency">NASA / ESA / CSA</p>
+          <p>O maior e mais poderoso telescópio espacial já construído, capaz de ver as primeiras galáxias do universo.</p>
+        </article>
+      </div>
+    </section>
+
     <section id="explore" class="explore-section" aria-labelledby="explore-title">
       <div class="explore-inner">
-        <span class="section-tag" aria-hidden="true">02 / curiosidades</span>
+        <span class="section-tag" aria-hidden="true">03 / curiosidades</span>
         <h2 id="explore-title">Fatos que Surpreendem</h2>
         <div class="facts-ticker" aria-live="polite" aria-label="Curiosidades sobre o sistema solar">
           <div class="ticker-track" id="tickerTrack" aria-hidden="true">
@@ -208,7 +345,6 @@
             <span>✦ Um ano em Mercúrio dura 88 dias terrestres</span>
           </div>
         </div>
-
         <div class="scale-viz" aria-label="Visualização comparativa dos planetas">
           <p class="scale-label">Tamanho comparativo (escala aproximada)</p>
           <div class="scale-planets" aria-hidden="true">
@@ -231,14 +367,16 @@
 
     <footer class="site-footer" role="contentinfo">
       <div class="footer-inner">
-        <div class="footer-logo" aria-label="Cosmoria">
-          <span aria-hidden="true">✦</span> Cosmoria
-        </div>
+        <div class="footer-logo"><span aria-hidden="true">✦</span> Cosmoria</div>
         <p>Projeto desenvolvido para a disciplina de IHC — Interface Humano-Computador.</p>
         <p class="footer-credits">Feito com Three.js · GSAP · Lenis · VLibras</p>
-        <p class="footer-access">
-          <span aria-hidden="true">♿</span> Este site segue práticas de acessibilidade WCAG 2.1 AA
-        </p>
+        <nav class="footer-nav" aria-label="Links do rodapé">
+          <a href="#hero">Início</a>
+          <a href="#orrery">Orrery</a>
+          <a href="#planets">Planetas</a>
+          <a href="#explore">Curiosidades</a>
+        </nav>
+        <p class="footer-access"><span aria-hidden="true">♿</span> Este site segue práticas de acessibilidade WCAG 2.1 AA</p>
       </div>
     </footer>
 
@@ -248,15 +386,28 @@
     <div class="modal-backdrop" id="modalBackdrop"></div>
     <div class="modal-content">
       <button class="modal-close" id="modalClose" aria-label="Fechar detalhes do planeta">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
-      <div class="modal-planet-visual" id="modalVisual" aria-hidden="true"></div>
-      <h2 id="modal-planet-name" class="modal-planet-name"></h2>
-      <p class="modal-planet-type" id="modalType"></p>
-      <p class="modal-planet-desc" id="modalDesc"></p>
-      <ul class="modal-stats" id="modalStats" aria-label="Dados do planeta"></ul>
+      <div class="modal-header">
+        <div class="modal-planet-visual" id="modalVisual" aria-hidden="true"></div>
+        <div class="modal-header-info">
+          <p class="modal-planet-type" id="modalType"></p>
+          <h2 id="modal-planet-name" class="modal-planet-name"></h2>
+          <p class="modal-planet-desc" id="modalDesc"></p>
+        </div>
+      </div>
+      <div class="modal-tabs" role="tablist" aria-label="Informações do planeta">
+        <button class="tab-btn active" role="tab" data-tab="stats" aria-selected="true">Dados</button>
+        <button class="tab-btn" role="tab" data-tab="fun" aria-selected="false">Curiosidades</button>
+      </div>
+      <div class="tab-panel" id="tab-stats" role="tabpanel">
+        <ul class="modal-stats" id="modalStats" aria-label="Dados do planeta"></ul>
+      </div>
+      <div class="tab-panel hidden" id="tab-fun" role="tabpanel">
+        <div class="fun-facts" id="modalFun"></div>
+      </div>
     </div>
   </div>
 

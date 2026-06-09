@@ -70,28 +70,31 @@ Modo de alto contraste ativado por botão fixo na interface. Ao ser ativado:
 
 ## 🚀 Como Executar
 
-### Opção 1 — Direto no navegador (recomendado)
+### Deploy (produção)
 
-Acesse o deploy: **[cosmoria.vercel.app](https://cosmoria.vercel.app)** *(substituir pela URL do deploy)*
+Acesse a versão publicada em: **[unit-2-ihc.vercel.app](https://unit-2-ihc.vercel.app/)**
 
-### Opção 2 — Localmente
+### Localmente
+
+O projeto é estático (HTML, CSS e JS). É preciso usar um servidor local — abrir o `index.html` direto no navegador (`file://`) pode causar erros de CORS com as bibliotecas CDN.
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/cosmoria.git
+git clone https://github.com/AndersonGabrielBD/UNIT2IHC.git
 
 # Entre na pasta
-cd cosmoria
+cd UNIT2IHC
 
-# Abra com um servidor local (necessário por conta do Three.js)
+# Inicie um servidor local (escolha uma opção)
 npx serve .
 # ou
 python -m http.server 8000
 ```
 
-Depois acesse `http://localhost:3000` (ou `8000`).
+Depois abra no navegador:
 
-> ⚠️ **Importante:** Abrir o `index.html` diretamente (`file://`) pode causar erros de CORS com as bibliotecas CDN. Use sempre um servidor local.
+- `http://localhost:3000` — se usou `npx serve .`
+- `http://localhost:8000` — se usou `python -m http.server 8000`
 
 ---
 
